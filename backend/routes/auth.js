@@ -95,7 +95,7 @@ router.post(
 );
 
 //Route3: endpoint to get the user details: POST "api/auth/getuser" login required
-router.post("/getuser",fetchuser,
+router.get("/getuser",fetchuser,
   async (req, res) => {
     try {
       const userId = req.user.id;
