@@ -14,5 +14,5 @@ app.use('/api/auth',require('./routes/auth'));
 app.use('/api/notes',require('./routes/notes'));
 
 app.listen(port,()=>{
-    console.log(`app is listening at http://localhost:${port}`)
+    console.log(`your secret diary is listening at http://localhost:${port}`)
 })
