@@ -1,15 +1,24 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef,useState} from "react";
 import NoteContext from "../context/notes/noteContext";
 import NoteItem from "./NoteItem";
 import AddNote from "./AddNote";
 const Notes = () => {
+  const [note, setNote] = useState({etitle:"",edescription:"",etag:"default"});
+  const handleClick = (e)=>{
+      e.preventDefault();
+      console.log("updating note")
+  }
+  const onchange = (e)=>{
+      setNote({...note,[e.target.name]:e.target.value});
+  }
   const context = useContext(NoteContext);
   const { notes, getNotes } = context;
   useEffect(() => {
     getNotes();
     //eslint-disable-next-line
   }, []);
-  const updateNote = (note) => {
+  const updateNote = (currentNote) => {
+    setNote({etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag});
     ref.current.click();
   };
   const ref = useRef(null);
@@ -18,7 +27,7 @@ const Notes = () => {
       <AddNote />
       <button
         type="button"
-        className="btn btn-primary"
+        className="btn btn-primary d-none"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
         ref={ref}
@@ -29,7 +38,7 @@ const Notes = () => {
       <div
         className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
@@ -37,7 +46,7 @@ const Notes = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h1 className="modal-title fs-5" id="exampleModalLabel">
-                Modal title
+                Edit Note
               </h1>
               <button
                 type="button"
@@ -46,7 +55,50 @@ const Notes = () => {
                 aria-label="Close"
               ></button>
             </div>
-            <div className="modal-body">...</div>
+            <div className="modal-body">
+            <form>
+          <div className="mb-3">
+            <label htmlFor="etitle" className="form-label">
+              Title
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="etitle"
+              name="etitle"
+              value={note.etitle}
+              aria-describedby="emailHelp"
+              onChange={onchange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="edescription" className="form-label">
+              Description
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="edescription"
+              name="edescription"
+              value={note.edescription}
+              onChange={onchange}
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="etag" className="form-label">
+              Tag
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="etag"
+              name="etag"
+              value={note.etag}
+              onChange={onchange}
+            />
+          </div>
+        </form>
+            </div>
             <div className="modal-footer">
               <button
                 type="button"
@@ -55,7 +107,7 @@ const Notes = () => {
               >
                 Close
               </button>
-              <button type="button" className="btn btn-primary">
+              <button onClick={handleClick}type="button" className="btn btn-primary">
                 Save changes
               </button>
             </div>
