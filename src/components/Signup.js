@@ -1,9 +1,8 @@
 import React,{useState} from "react";
-import { useNavigate } from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 const Signup = (props) => {
     const [credentials, setCredentials] = useState({name:"",email:"",password:"",cpassword:""});
     let navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     const host = "http://localhost:4000";
     e.preventDefault();
@@ -35,7 +34,8 @@ const Signup = (props) => {
   }
 
   return (
-    <div className="container border p-3">
+    <div className="container border p-3 my-5">
+      <h2>Signup!</h2>
       <form onSubmit={handleSubmit}>
         <div className="mb-3">
           <label htmlFor="name" className="form-label">
