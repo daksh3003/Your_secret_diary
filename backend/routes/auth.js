@@ -81,7 +81,7 @@ router.post(
       if (!passwordCompare) {
         return res
           .status(400)
-          .json({sucess, error: "try to login with correct credentials" });
+          .json({success, error: "try to login with correct credentials" });
       }
       const payload = {
         user: {
