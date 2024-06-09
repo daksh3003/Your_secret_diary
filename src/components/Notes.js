@@ -12,7 +12,7 @@ const Notes = () => {
     //eslint-disable-next-line
   }, []);
 
-  const [note, setNote] = useState({id:"",etitle:"",edescription:"",etag:"default"});
+  const [note, setNote] = useState({id:"",etitle:"",edescription:"",etag:""});
   const updateNote = (currentNote) => {
     setNote({id:currentNote._id,etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag});
     ref.current.click();
@@ -78,6 +78,8 @@ const Notes = () => {
               value={note.etitle}
               aria-describedby="emailHelp"
               onChange={onchange}
+              minLength={5}
+              required
             />
           </div>
           <div className="mb-3">
@@ -91,6 +93,8 @@ const Notes = () => {
               name="edescription"
               value={note.edescription}
               onChange={onchange}
+              minLength={5}
+              required
             />
           </div>
           <div className="mb-3">
@@ -117,15 +121,18 @@ const Notes = () => {
               >
                 Close
               </button>
-              <button onClick={handleClick}type="button" className="btn btn-primary">
+              <button onClick={handleClick}type="button" className="btn btn-primary"disabled = {note.etitle.length<5 || note.edescription.length<5}>
                 Save changes
               </button>
             </div>
           </div>
         </div>
       </div>
-      <div className="row my-3">
+      <div className="row my-5">
         <h2>Your notes!</h2>
+        <div className="container mx-2 fs-4">
+          {notes.length===0 && 'No notes to display'}
+        </div>
         {notes.map((note) => {
           return (
             <NoteItem key={note._id} updateNote={updateNote} note={note} />
